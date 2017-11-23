@@ -39,36 +39,35 @@ public class MainActivity extends AppCompatActivity {
                    mTodos = todos;
                    mTodosAdapter = new TodosAdapter();
                    todosRecyclerView.setAdapter(mTodosAdapter);
-               } else {
-                   DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+                } else {
+                    DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
 
-                       @Override
-                       public int getOldListSize() {
-                                                         return mTodos.size();
-                                                                              }
+                        @Override
+                        public int getOldListSize() {
+                            return mTodos.size();
+                        }
 
-                       @Override
-                       public int getNewListSize() {
-                                                         return todos.size();
-                                                                             }
+                        @Override
+                        public int getNewListSize() {
+                            return todos.size();
+                        }
 
-                       @Override
-                       public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                           return mTodos.get(oldItemPosition).getId() ==
-                               todos.get(newItemPosition).getId();
-                       }
+                        @Override
+                        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                            return mTodos.get(oldItemPosition).getId() ==
+                                todos.get(newItemPosition).getId();
+                        }
 
-                       @Override
-                       public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                           Todo oldTodo = mTodos.get(oldItemPosition);
-                           Todo newTodo = todos.get(newItemPosition);
-                           return oldTodo.equals(newTodo);
-                   }
-
-               });
-               result.dispatchUpdatesTo(mTodosAdapter);
-               mTodos = todos;
-           }
+                        @Override
+                        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                            Todo oldTodo = mTodos.get(oldItemPosition);
+                            Todo newTodo = todos.get(newItemPosition);
+                            return oldTodo.equals(newTodo);
+                        }
+                    });
+                    result.dispatchUpdatesTo(mTodosAdapter);
+                    mTodos = todos;
+                }
             }
         };
         mTodosViewModel.getTodos().observe(this, todosObserver);
