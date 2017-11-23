@@ -35,34 +35,34 @@ public class MainActivity extends AppCompatActivity {
         final Observer<List<Todo>> todosObserver = new Observer<List<Todo>>() {
             @Override
             public void onChanged(@Nullable final List<Todo> todos) {
-           if (mTodos == null) {
-               mTodos = todos;
-               mTodosAdapter = new TodosAdapter();
-               todosRecyclerView.setAdapter(mTodosAdapter);
-           } else {
-               DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
+                if (mTodos == null) {
+                   mTodos = todos;
+                   mTodosAdapter = new TodosAdapter();
+                   todosRecyclerView.setAdapter(mTodosAdapter);
+               } else {
+                   DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
 
-                   @Override
-                   public int getOldListSize() {
-                       return mTodos.size();
-                   }
+                       @Override
+                       public int getOldListSize() {
+                                                         return mTodos.size();
+                                                                              }
 
-                   @Override
-                   public int getNewListSize() {
-                       return todos.size();
-                   }
+                       @Override
+                       public int getNewListSize() {
+                                                         return todos.size();
+                                                                             }
 
-                   @Override
-                   public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-                       return mTodos.get(oldItemPosition).getId() ==
-                           todos.get(newItemPosition).getId();
-                   }
+                       @Override
+                       public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+                           return mTodos.get(oldItemPosition).getId() ==
+                               todos.get(newItemPosition).getId();
+                       }
 
-                   @Override
-                   public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-                       Todo oldTodo = mTodos.get(oldItemPosition);
-                       Todo newTodo = todos.get(newItemPosition);
-                       return oldTodo.equals(newTodo);
+                       @Override
+                       public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+                           Todo oldTodo = mTodos.get(oldItemPosition);
+                           Todo newTodo = todos.get(newItemPosition);
+                           return oldTodo.equals(newTodo);
                    }
 
                });
